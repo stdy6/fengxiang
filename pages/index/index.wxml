@@ -1,0 +1,98 @@
+<view>
+  <!-- 外层容器 -->
+  <view class="wrapper">
+    <!-- 头部标题 -->
+    <view class="header-wrapper">
+      <view class="header-title">
+        <text>智能蜂箱监测系统</text>
+      </view>
+    </view>
+
+    <!-- 数据展示区域 -->
+    <view class="data-container">
+      <!-- 原有数据项保持不变 -->
+      <!-- 温度 -->
+      <view class="data-item temperature" style="width: 358rpx; height: 135rpx; display: flex; box-sizing: border-box">
+        <image src="/图片/温度计.png" class="data-picture"/>
+        <view class="data-text">
+          <view class="data-title">环境温度</view>
+          <view class="data-value">{{onenet_data.data[6].value}}℃</view>
+        </view>
+      </view>
+
+      <!-- 湿度 -->
+      <view class="data-item humidity" style="width: 358rpx; height: 135rpx; display: flex; box-sizing: border-box">
+        <image src="/图片/湿度.png" class="data-picture"/>
+        <view class="data-text">
+          <view class="data-title">环境湿度</view>
+          <view class="data-value">{{onenet_data.data[3].value}}%</view>
+        </view>
+      </view>
+
+      <!-- 重量 -->
+      <view class="data-item weight">
+        <image src="/图片/蜂箱数量.png" class="data-picture"/>
+        <view class="data-text">
+          <view class="data-title">蜂箱重量</view>
+          <view class="data-value">{{onenet_data.data[8].value}}g</view>
+        </view>
+      </view>
+
+      <!-- 进出数量 -->
+      <view class="data-item activity">
+        <image src="/图片/24-蜜蜂.png" class="data-picture"/>
+        <view class="data-text">
+          <view class="data-title">数量</view>
+          <view class="data-value">{{onenet_data.data[2].value}}次</view>
+        </view>
+      </view>
+      
+      <!-- 光照强度 -->
+      <view class="data-item weight">
+        <image src="/图片/灯.png" class="data-picture"/>
+        <view class="data-text">
+          <view class="data-title">光照强度</view>
+          <view class="data-value">{{onenet_data.data[4].value}}lx</view>
+        </view>
+      </view>
+
+      <!-- 气体浓度 -->
+      <view class="data-item activity">
+        <image src="/图片/二氧化碳.png" class="data-picture"/>
+        <view class="data-text">
+          <view class="data-title">浓度</view>
+          <view class="data-value">{{onenet_data.data[1].value}}pm</view>
+        </view>
+      </view> 
+    </view> <!-- 结束 data-container -->    
+    <!-- 分割线 -->
+    <view class="divider"></view>
+
+     <!-- 系统异常信息 -->
+     <view class="alert-header" style="height: 74rpx; display: flex; box-sizing: border-box">
+      <text class="alert-title">系统状态</text>
+      <text class="alert-status {{onenet_data.data[7].value === 'true' ? 'alert-warning' : 'alert-ok'}}">
+        {{onenet_data.data[7].value === 'false' ? '⚠️ 系统异常' : '✅ 系统正常'}}
+      </text>
+    </view>
+    
+    <!-- 采蜜信息 - 根据采蜜通知状态显示 -->
+    <view class="alert-header" style="height: 74rpx; display: flex; box-sizing: border-box">
+      <text class="alert-title">采蜜通知</text>
+      <text class="alert-status {{onenet_data.data[9].value === 'true' ? 'alert-ok' : 'alert-warning'}}">
+        {{onenet_data.data[9].value === 'true' ? '✅ 可以采蜜' : '⚠️ 不需采蜜'}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 底部设置区域 -->
+  <view class="container1">
+    <input class="input" placeholder="请输入设定值" bindinput="inputyz" />
+  </view>
+  <view class="container1">
+    <view class="button-container">
+      <button class="button1" bindtap="tempsetting">设定温度(上限40)</button>
+      <button class="button2" bindtap="humiditySetting">设定湿度(上限80)</button>
+    </view>  
+  </view>
+</view>
